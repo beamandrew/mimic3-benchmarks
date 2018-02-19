@@ -1,4 +1,4 @@
-MIMIC-NICU-III Benchmarks
+MIMIC-III-NICU Benchmarks
 =========================
 This is a fork of the original mimic3-benchmarks. This version is focused only on patients in the neonatal intensive care unit (NICU), whereas the original version excluded all patients under the age of 18. If you use this, please cite their original paper below.
 
