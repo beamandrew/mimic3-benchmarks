@@ -28,6 +28,10 @@ patients = read_patients_table(args.mimic3_path)
 admits = read_admissions_table(args.mimic3_path)
 stays = read_icustays_table(args.mimic3_path)
 if args.verbose:
+## Filter to only use NICU patients ##
+    print('FILTER FOR NICU STAYS ONLY.')
+stays = filter_on_nicustays(stays)
+if args.verbose:
     print('START:', stays.ICUSTAY_ID.unique().shape[0], stays.HADM_ID.unique().shape[0],
           stays.SUBJECT_ID.unique().shape[0])
 
@@ -46,7 +50,7 @@ if args.verbose:
 stays = add_age_to_icustays(stays)
 stays = add_inunit_mortality_to_icustays(stays)
 stays = add_inhospital_mortality_to_icustays(stays)
-stays = filter_icustays_on_age(stays)
+#stays = filter_icustays_on_age(stays)
 if args.verbose:
     print('REMOVE PATIENTS AGE < 18:', stays.ICUSTAY_ID.unique().shape[0], stays.HADM_ID.unique().shape[0],
           stays.SUBJECT_ID.unique().shape[0])

@@ -90,6 +90,10 @@ def filter_icustays_on_age(stays, min_age=18, max_age=np.inf):
     stays = stays.ix[(stays.AGE>=min_age)&(stays.AGE<=max_age)]
     return stays
 
+def filter_on_nicustays(stays):
+    stays = stays.ix[(stays.FIRST_CAREUNIT == 'NICU')]
+    return stays
+
 def filter_diagnoses_on_stays(diagnoses, stays):
     return diagnoses.merge(stays[['SUBJECT_ID', 'HADM_ID', 'ICUSTAY_ID']].drop_duplicates(), how='inner',
                            left_on=['SUBJECT_ID', 'HADM_ID'], right_on=['SUBJECT_ID', 'HADM_ID'])
