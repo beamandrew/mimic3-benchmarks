@@ -9,6 +9,7 @@ from mimic3benchmark.readers import DecompensationReader
 from mimic3models import common_utils
 from mimic3models import metrics
 
+#os.chdir('/Users/andy/PycharmProjects/Repositories/mimic3-nicu-benchmarks/mimic3models/decompensation/logistic')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--epochs', type=int, default=100, help='number of epochs to train')
@@ -41,6 +42,7 @@ def read_and_extract_features(reader, count):
     Xs = []
     ys = []
     for i in range(count // read_chunk_size):
+        print(str(i))
         ret = common_utils.read_chunk(reader, read_chunk_size)
         chunk = ret["X"]
         y = ret["y"]
@@ -53,12 +55,12 @@ def read_and_extract_features(reader, count):
 
 
 print "==> reading data and extracting features"
-chunk_size = 100000  # TODO: bigger chunk_size
+#chunk_size = 8000  # TODO: bigger chunk_size
 
-(train_X, train_y) = read_and_extract_features(train_reader, chunk_size)
+(train_X, train_y) = read_and_extract_features(train_reader, train_reader.get_number_of_examples())
 del train_reader
 
-(val_X, val_y) = read_and_extract_features(val_reader, chunk_size)
+(val_X, val_y) = read_and_extract_features(val_reader, val_reader.get_number_of_examples())
 del val_reader
 
 (test_X, test_y) = read_and_extract_features(test_reader,
